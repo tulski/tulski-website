@@ -6,9 +6,10 @@ import { media } from 'utils';
 import ParallaxContainer from 'containers/ParallaxContainer';
 import SectionTemplate from 'templates/SectionTemplate';
 
-const HeroWrapper = styled.div`
+const HomeWrapper = styled.div`
   ${media.mobileL`
-  margin-top: 35%;
+  width:100%;
+  margin-top: 60%;
   display:flex;
   flex-direction:column;
   align-items:flex-end;
@@ -19,13 +20,14 @@ const StyledParallaxContainer = styled(ParallaxContainer)`
   padding: 2rem 4rem;
 
   ${media.mobileL`
-  margin-right: -72%;
-  margin-bottom: 40%;
-  transform:rotate(-90deg);
+  padding: 0;
+  transform:rotate(-90deg) translateY(360%);
+  transform-origin: bottom left;
   `}
 `;
 
 const StyledSvg = styled(motion.svg)`
+  width: 100%;
   max-width: 519px;
   max-height: 144px;
   overflow: visible;
@@ -37,7 +39,7 @@ const Subtitle = styled.h4`
   font-size: ${({ theme }) => theme.fontSize.l};
 
   ${media.mobileL`
-  margin: 0;
+  margin: 1rem 0;
   font-size: ${({ theme }) => theme.fontSize.m};
   text-align: right;
   max-width: 5rem;
@@ -45,8 +47,8 @@ const Subtitle = styled.h4`
 `;
 
 const HeroSection = () => (
-  <SectionTemplate>
-    <HeroWrapper>
+  <SectionTemplate id="home">
+    <HomeWrapper>
       <StyledParallaxContainer
         translateRange={[-20, 20]}
         rotateXRange={[-10, 10]}
@@ -101,7 +103,7 @@ const HeroSection = () => (
         )}
       </StyledParallaxContainer>
       <Subtitle>home grown dev.</Subtitle>
-    </HeroWrapper>
+    </HomeWrapper>
   </SectionTemplate>
 );
 

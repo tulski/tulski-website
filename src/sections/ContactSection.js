@@ -13,7 +13,25 @@ const StyledSectionTemplate = styled(SectionTemplate)`
   grid-row-gap: 3rem;
 
   ${media.mobileL`
-  grid-template: auto 1fr / 1fr;
+  grid-row-gap: 0;
+  padding: 1rem 0;
+  grid-template:  1fr auto / 1fr;
+  `}
+`;
+
+const StyledSectionHeading = styled(SectionHeading)`
+  ${media.mobileL`
+    display:none;
+  `}
+`;
+
+const StyledMatrix = styled(Matrix)`
+  padding: 3rem;
+  transform: translate(-2rem, 2rem);
+
+  ${media.mobileL`
+    transform: translate(0, 1rem);
+    grid-row: 3;
   `}
 `;
 
@@ -23,6 +41,10 @@ const ContactsWrapper = styled.div`
   align-items: end;
   grid-column-gap: 1.75rem;
   transform: translateY(-3rem);
+
+  ${media.mobileL`
+    transform:none;
+  `}
 `;
 
 const BigParagraph = styled(Paragraph)`
@@ -38,9 +60,9 @@ const LightParagraph = styled(Paragraph)`
 `;
 
 const ContactSection = () => (
-  <StyledSectionTemplate>
-    <SectionHeading>contact.</SectionHeading>
-    <Matrix />
+  <StyledSectionTemplate id="contact">
+    <StyledSectionHeading>contact.</StyledSectionHeading>
+    <StyledMatrix />
     <ContactsWrapper>
       <BigParagraph as={Link} href="mailto: me@tulski.com">
         me@tulski.dev
@@ -49,8 +71,8 @@ const ContactSection = () => (
         +48 538 777 372
       </BigParagraph>
       <LightParagraph>connect me on</LightParagraph>
-      <Link href="https://github.com/mtulowiecki">Github</Link>
-      <Link href="https://www.linkedin.com/in/tulski/">LinekIn</Link>
+      <Link href="https://github.com/tulski">Github</Link>
+      <Link href="https://www.linkedin.com/in/tulski/">LinkedIn</Link>
       <Link href="https://www.instagram.com/to_tulo/">Instagram</Link>
     </ContactsWrapper>
   </StyledSectionTemplate>

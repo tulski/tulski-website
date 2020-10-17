@@ -13,6 +13,10 @@ const SectionHeading = styled.h3`
   }
 
   ${media.mobileL`
+  font-size: ${({ theme }) => theme.fontSize.l};
+  `}
+
+  ${media.mobileL`
   margin: 3rem 0 2rem`}
 `;
 

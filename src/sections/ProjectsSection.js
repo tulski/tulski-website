@@ -36,15 +36,13 @@ const ProjectsWrapper = styled.div`
   &::before, &::after {
     content:'';
     width:25vw;
-    scroll-snap-align:  center;
   }
   `}
 
   ${media.mobileL`
-  &::before, &::after {
-    content:'';
-    width:16.666vw;
-    scroll-snap-align:  center;
+    &::before, &::after {
+      content:'';
+      width:16.666vw;
   }
   `}
 `;
@@ -59,17 +57,18 @@ const ProjectWrapper = styled.div`
   }
 
   ${media.tablet`
-  padding: 3rem;
-  height:100%;
-  width:50vw;
-  flex-direction: column;
-  align-items: center;
-  scroll-snap-align:  center;
+    padding: 3rem;
+    height:100%;
+    width:50vw;
+    flex-direction: column;
+    align-items: center;
+    scroll-snap-align:  center;
   `}
 
   ${media.mobileL`
-  width:66.666vw;
-  padding: 1rem
+    justify-content:center;
+    width:66.666vw;
+    padding: 1rem
   `}
 `;
 
@@ -84,12 +83,18 @@ const ProjectTextWrapper = styled.div`
     `}
 
   ${media.tablet`
-  flex: 0 0 33.333%;
-  max-width: none;
+    flex: 0 0 33.333%;
+    max-width: none;
   `}
 
   ${media.mobileL`
-  display:none;
+    flex: 0 0 5%;
+  `}
+`;
+
+const StyledParagraph = styled(Paragraph)`
+  ${media.mobileL`
+    display:none;
   `}
 `;
 
@@ -98,13 +103,13 @@ const StyledImgWrapper = styled.div`
   flex: 1 0 45%;
 
   ${media.tablet`
-  width: 70%;
-  flex: 0 0 66.666%;
-  padding:0 0 3rem ;
+    width: 70%;
+    flex: 0 0 66.666%;
+    padding: 0 0 3rem;
   `}
 
   ${media.mobileL`
-  width: 100%;
+    padding: 0 0 1rem;
   `}
 `;
 
@@ -143,9 +148,10 @@ const WorkSection = () => {
   );
 
   return (
-    <StyledSectionTemplate>
+    <StyledSectionTemplate id="projects">
       <SectionHeading>
-        work.<strong>work.</strong>work.<strong>work.</strong>work.
+        work.<strong>work.</strong>work.<strong>work.</strong>
+        work.
       </SectionHeading>
       <ProjectsWrapper>
         <ProjectWrapper>
@@ -157,19 +163,19 @@ const WorkSection = () => {
           </StyledImgWrapper>
           <ProjectTextWrapper justify>
             <div>
-              <Link small href="https://github.com/tulski">
+              <Link small href="https://tuloku.netlify.app/">
                 live demo
               </Link>{' '}
               –{' '}
-              <Link small href="https://github.com/tulski">
+              <Link small href="https://github.com/tulski/tuloku">
                 repository
               </Link>
             </div>
-            <Paragraph semiBold>
+            <StyledParagraph semiBold>
               Progressive Web App made out of love to sudoku. Complete react
               game with redux dynamic modules and framer-motion animations.
               Simple, minimalist design.
-            </Paragraph>
+            </StyledParagraph>
           </ProjectTextWrapper>
         </ProjectWrapper>
         <ProjectWrapper>
@@ -181,15 +187,17 @@ const WorkSection = () => {
           </StyledImgWrapper>
           <ProjectTextWrapper>
             <div>
-              <Link small href="https://github.com/tulski">
+              <Link small href="https://tulowiecka.pl">
                 live demo
               </Link>{' '}
               –{' '}
-              <Link small href="https://github.com/tulski">
+              <Link small href="https://github.com/tulski/tulowiecka-website">
                 repository
               </Link>
             </div>
-            <Paragraph semiBold>Simple buissnes landing page</Paragraph>
+            <StyledParagraph semiBold>
+              Simple buissnes landing page
+            </StyledParagraph>
           </ProjectTextWrapper>
         </ProjectWrapper>
         <ProjectWrapper>
@@ -209,7 +217,7 @@ const WorkSection = () => {
                 repository
               </Link>
             </div>
-            <Paragraph semiBold>eCommerce website</Paragraph>
+            <StyledParagraph semiBold>eCommerce website</StyledParagraph>
           </ProjectTextWrapper>
         </ProjectWrapper>
       </ProjectsWrapper>

@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { ResizeObserver } from '@juggle/resize-observer';
 import { motion, useAnimation, useMotionValue } from 'framer-motion';
 import { media } from 'utils';
 
@@ -12,12 +14,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.secondary};
-  transform: translate(-2rem, 2rem);
   overflow: hidden;
-
-  ${media.mobileL`
-  display: none;
-  `}
 `;
 
 const Container = styled.div`
@@ -29,6 +26,10 @@ const Container = styled.div`
     display: block;
     padding-top: 100%;
   }
+
+  ${media.mobileL`
+  width:40%;
+  `}
 `;
 
 const Magnet = styled(motion.div)`
@@ -41,13 +42,16 @@ const Magnet = styled(motion.div)`
   border: 0.25rem solid ${({ theme }) => theme.primary};
 `;
 
-const Matrix = () => {
+const Matrix = ({ className }) => {
   const [containerSize, setContainerSize] = useState(420);
-  const containerRef = useRef(null);
+  const containerRef = useRef();
   const rows = [0, 1, 2, 3, 4, 5];
   const columns = rows;
   const boxSize = containerSize / rows.length;
 
+  const ro = new ResizeObserver((entries) => {
+    setContainerSize(entries.slice(-1)[0].contentRect.width);
+  });
   const transition = { duration: 3, loop: Infinity, ease: 'easeOut' };
 
   const x = useMotionValue(-boxSize);
@@ -55,8 +59,8 @@ const Matrix = () => {
   const animation = useAnimation();
 
   useEffect(() => {
-    setContainerSize(containerRef.current.getBoundingClientRect().height);
-  }, []);
+    ro.observe(containerRef.current, { box: 'border-box' });
+  }, [ro]);
 
   const loopAnimation = useCallback(
     () =>
@@ -96,27 +100,30 @@ const Matrix = () => {
   useEffect(() => {
     loopAnimation();
     return () => stopAnimation();
-  }, [loopAnimation, stopAnimation]);
+  }, [loopAnimation, stopAnimation, containerSize]);
 
   return (
     <Wrapper
+      className={className}
       onMouseEnter={stopAnimation}
       onMouseLeave={restartAnimation}
       onMouseMove={handleMouseMove}
     >
       <Container ref={containerRef}>
-        {rows.map((row, rowIndex) =>
-          columns.map((column, columnIndex) => (
-            <Box
-              x={x}
-              y={y}
-              row={rowIndex}
-              column={columnIndex}
-              key={`${row}${column}`}
-              containerSize={containerSize}
-              boxSize={boxSize}
-            />
-          )),
+        {rows.map(
+          (row, rowIndex) =>
+            columns.map((column, columnIndex) => (
+              <Box
+                x={x}
+                y={y}
+                row={rowIndex}
+                column={columnIndex}
+                key={`${row}${column}`}
+                containerSize={containerSize}
+                boxSize={boxSize}
+              />
+            )),
+          // eslint-disable-next-line function-paren-newline
         )}
         <Magnet
           style={{
@@ -130,6 +137,14 @@ const Matrix = () => {
       </Container>
     </Wrapper>
   );
+};
+
+Matrix.propTypes = {
+  className: PropTypes.string,
+};
+
+Matrix.defaultProps = {
+  className: null,
 };
 
 export default Matrix;

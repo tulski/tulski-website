@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { media } from 'utils';
 
-import moon from 'assets/icons/moon.svg';
-import clouds from 'assets/icons/clouds.svg';
-import stars from 'assets/icons/stars.svg';
+import moon from 'assets/svgs/moon.svg';
+import clouds from 'assets/svgs/clouds.svg';
+import stars from 'assets/svgs/stars.svg';
 
 const Toggle = styled(motion.div)`
   position: absolute;
@@ -24,8 +24,10 @@ const Toggle = styled(motion.div)`
   z-index: 100;
 
   ${media.mobileL`
-  top: 1rem;
-  right: 1rem;
+    height:1.5rem;
+    width: 2.75rem;
+    top: 1rem;
+    right: 1rem;
   `}
 `;
 

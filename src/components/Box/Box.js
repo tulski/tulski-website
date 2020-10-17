@@ -20,34 +20,36 @@ const Box = ({ x, y, row, column, boxSize, containerSize, theme }) => {
   const background = useMotionValue('');
 
   useEffect(() => {
-    function calcAngle(top, left, cursorTop, cursorLeft) {
-      let angle =
-        Math.atan2(cursorTop - left, cursorLeft - top) * (180 / Math.PI);
-      return angle < 0 ? -(angle + 540) : -(angle + 180);
+    function calcAngle(cursorTop, cursorLeft) {
+      const calculatedAngle =
+        Math.atan2(cursorTop, cursorLeft) * (180 / Math.PI);
+      return calculatedAngle < 0
+        ? -(calculatedAngle + 540)
+        : -(calculatedAngle + 180);
     }
 
     function updateProps() {
-      const updatedAngle = calcAngle(top, left, x.get(), y.get());
+      const updatedAngle = calcAngle(x.get(), y.get());
       angle.set(updatedAngle);
 
       const proximity = Math.max(
         Math.abs(left - x.get()),
-        Math.abs(top - y.get())
+        Math.abs(top - y.get()),
       );
       const newColor = transform(
         proximity,
         [0, containerSize - boxSize],
-        [theme.yellow, theme.red]
+        [theme.yellow, theme.red],
       );
       const newScale = transform(
         proximity,
         [0, containerSize - boxSize],
-        [0.8, 0.5]
+        [0.8, 0.5],
       );
       const newBorderRadius = transform(
         proximity,
         [0, containerSize - boxSize],
-        [boxSize * 0.11, boxSize * 0.33]
+        [boxSize * 0.11, boxSize * 0.33],
       );
       background.set(newColor);
       scale.set(newScale);
@@ -61,7 +63,20 @@ const Box = ({ x, y, row, column, boxSize, containerSize, theme }) => {
       unsubscribeX();
       unsubscribeY();
     };
-  }, []);
+  }, [
+    angle,
+    background,
+    borderRadius,
+    boxSize,
+    containerSize,
+    left,
+    scale,
+    theme.red,
+    theme.yellow,
+    top,
+    x,
+    y,
+  ]);
 
   return (
     <StyledBox
@@ -85,7 +100,10 @@ Box.propTypes = {
   column: PropTypes.number.isRequired,
   boxSize: PropTypes.number.isRequired,
   containerSize: PropTypes.number.isRequired,
-  theme: PropTypes.number.isRequired,
+  theme: PropTypes.shape({
+    yellow: PropTypes.string.isRequired,
+    red: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default withTheme(Box);

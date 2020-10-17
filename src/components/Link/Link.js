@@ -5,7 +5,7 @@ const Link = styled.a`
   margin: 0.5rem 0;
   font-size: ${({ theme }) => theme.fontSize.m};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  color: ${({ theme }) => theme.secondary};
+  color: inherit;
   text-decoration: underline;
 
   ${({ small, theme }) =>

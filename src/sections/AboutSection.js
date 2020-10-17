@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import Typed from 'typed.js';
+import { Link } from 'react-scroll';
 import { motion } from 'framer-motion';
 import { media } from 'utils';
 
@@ -116,7 +117,7 @@ const AboutSection = () => {
   });
 
   return (
-    <SectionTemplate>
+    <SectionTemplate id="aboutMe">
       <StyledParallaxContainer translateRange={[5, -5]}>
         {({ translateX, translateY }) => (
           <AboutWrapper style={{ translateX, translateY }}>
@@ -136,7 +137,15 @@ const AboutSection = () => {
               <Paragraph gray semiBold>
                 based in Warsaw, currently looking for a job
               </Paragraph>
-              <Button name="contact">contact me!</Button>
+              <Button
+                as={Link}
+                to="contact"
+                containerId="root"
+                smooth
+                name="contact"
+              >
+                contact me!
+              </Button>
             </AboutTextWrapper>
             <ImageWrapper
               rotateXRange={[-10, 10]}

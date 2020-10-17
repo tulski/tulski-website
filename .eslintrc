@@ -3,7 +3,11 @@
   "extends": ["airbnb", "airbnb/hooks"],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "operator-linebreak": ["error", "after"],
+    "operator-linebreak": [
+      "error",
+      "after",
+      { "overrides": { "?": "before", ":": "before" } }
+    ],
     "function-paren-newline": ["error", "consistent"],
     "object-curly-newline": ["error", { "consistent": true }],
     "react/jsx-one-expression-per-line": 0,

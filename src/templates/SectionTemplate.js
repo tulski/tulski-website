@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Element } from 'react-scroll';
 import { media } from 'utils';
 
-const Wrapper = styled.div`
+const Wrapper = styled(Element)`
   scroll-snap-align: start;
   padding: 2rem;
   width: 100%;
@@ -16,12 +17,15 @@ const Wrapper = styled.div`
   `}
 `;
 
-const SectionTemplate = ({ className, children }) => (
-  <Wrapper className={className}>{children}</Wrapper>
+const SectionTemplate = ({ id, className, children }) => (
+  <Wrapper id={id} name={id} className={className}>
+    {children}
+  </Wrapper>
 );
 
 SectionTemplate.propTypes = {
-  className: PropTypes.node,
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
