@@ -209,11 +209,11 @@ const WorkSection = () => {
           </StyledImgWrapper>
           <ProjectTextWrapper>
             <div>
-              <Link small href="https://github.com/tulski">
+              <Link small href="https://tulart.tulski.com/">
                 live demo
               </Link>{' '}
               –{' '}
-              <Link small href="https://github.com/tulski">
+              <Link small href="https://github.com/tulski/tulart-website">
                 repository
               </Link>
             </div>

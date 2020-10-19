@@ -65,12 +65,12 @@ const ContactSection = () => (
     <StyledMatrix />
     <ContactsWrapper>
       <BigParagraph as={Link} href="mailto: me@tulski.com">
-        me@tulski.dev
+        me@tulski.com
       </BigParagraph>
       <BigParagraph as={Link} href="tel:+48538777372">
         +48 538 777 372
       </BigParagraph>
-      <LightParagraph>connect me on</LightParagraph>
+      <LightParagraph>connect with me on</LightParagraph>
       <Link href="https://github.com/tulski">Github</Link>
       <Link href="https://www.linkedin.com/in/tulski/">LinkedIn</Link>
       <Link href="https://www.instagram.com/to_tulo/">Instagram</Link>
