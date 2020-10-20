@@ -67,9 +67,6 @@ const ContactSection = () => (
       <BigParagraph as={Link} href="mailto: me@tulski.com">
         me@tulski.com
       </BigParagraph>
-      <BigParagraph as={Link} href="tel:+48538777372">
-        +48 538 777 372
-      </BigParagraph>
       <LightParagraph>connect with me on</LightParagraph>
       <Link href="https://github.com/tulski">Github</Link>
       <Link href="https://www.linkedin.com/in/tulski/">LinkedIn</Link>
