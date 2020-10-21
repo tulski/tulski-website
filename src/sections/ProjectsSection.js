@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
+import { useIntersectionObserver } from '@researchgate/react-intersection-observer';
+import { motion, useAnimation } from 'framer-motion';
 import Img from 'gatsby-image';
 import { media } from 'utils';
 
@@ -98,7 +100,7 @@ const StyledParagraph = styled(Paragraph)`
   `}
 `;
 
-const StyledImgWrapper = styled.div`
+const StyledImgWrapper = styled(motion.div)`
   padding: 0 3rem 0 0;
   flex: 1 0 45%;
 
@@ -136,6 +138,16 @@ const WorkSection = () => {
       }
     }
   `);
+  const imagesControls = useAnimation();
+
+  const handleChange = (entry, unobserve) => {
+    if (entry.isIntersecting) {
+      imagesControls.start({ opacity: 1 });
+      unobserve();
+    }
+  };
+
+  const [wrapperRef] = useIntersectionObserver(handleChange);
 
   const [tulokuFile] = data.allFile.nodes.filter(
     ({ name }) => name === 'tuloku',
@@ -153,9 +165,9 @@ const WorkSection = () => {
         work.<strong>work.</strong>work.<strong>work.</strong>
         work.
       </SectionHeading>
-      <ProjectsWrapper>
+      <ProjectsWrapper ref={wrapperRef}>
         <ProjectWrapper>
-          <StyledImgWrapper>
+          <StyledImgWrapper initial={{ opacity: 0 }} animate={imagesControls}>
             <StyledImg
               fluid={tulokuFile.childImageSharp.fluid}
               imgStyle={{ objectFit: 'contain' }}
@@ -163,7 +175,7 @@ const WorkSection = () => {
           </StyledImgWrapper>
           <ProjectTextWrapper justify>
             <div>
-              <Link small href="https://tuloku.netlify.app/">
+              <Link small href="https://tuloku.tulski.com/">
                 live demo
               </Link>{' '}
               –{' '}
@@ -179,7 +191,7 @@ const WorkSection = () => {
           </ProjectTextWrapper>
         </ProjectWrapper>
         <ProjectWrapper>
-          <StyledImgWrapper>
+          <StyledImgWrapper initial={{ opacity: 0 }} animate={imagesControls}>
             <StyledImg
               fluid={tulowieckaFile.childImageSharp.fluid}
               imgStyle={{ objectFit: 'contain' }}
@@ -195,13 +207,11 @@ const WorkSection = () => {
                 repository
               </Link>
             </div>
-            <StyledParagraph semiBold>
-              Simple buissnes landing page
-            </StyledParagraph>
+            <StyledParagraph semiBold>Buissnes landing page</StyledParagraph>
           </ProjectTextWrapper>
         </ProjectWrapper>
         <ProjectWrapper>
-          <StyledImgWrapper>
+          <StyledImgWrapper initial={{ opacity: 0 }} animate={imagesControls}>
             <StyledImg
               fluid={tulartFile.childImageSharp.fluid}
               imgStyle={{ objectFit: 'contain' }}

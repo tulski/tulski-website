@@ -1,10 +1,11 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
+import { useIntersectionObserver } from '@researchgate/react-intersection-observer';
 import Img from 'gatsby-image';
 import Typed from 'typed.js';
 import { Link } from 'react-scroll';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { media } from 'utils';
 
 import ParallaxContainer from 'containers/ParallaxContainer';
@@ -79,8 +80,6 @@ const StyledImg = styled(Img)`
 `;
 
 const AboutSection = () => {
-  const typedEl = useRef();
-
   const data = useStaticQuery(graphql`
     query {
       file(relativePath: { eq: "about-image.jpeg" }) {
@@ -93,46 +92,57 @@ const AboutSection = () => {
     }
   `);
 
+  const typedRef = useRef();
+  const [visibility, setVisibility] = useState(false);
+  const imageControls = useAnimation();
+
+  const handleChange = (entry) => setVisibility(entry.isIntersecting);
+  const [wrapperRef] = useIntersectionObserver(handleChange);
+
+  const options = {
+    strings: [
+      'learn 👀 <strong>new skills</strong>.',
+      'create 💻 <strong>experiences.</strong>',
+      'discover 🆕<strong> things</strong>.',
+      'create 🔥 <strong>websites</strong>.',
+      'create 🚀 <strong>apps</strong>.',
+    ],
+    typeSpeed: 75,
+    backSpeed: 50,
+    startDelay: 1000,
+    backDelay: 2000,
+    smartBackspace: true,
+    showCursor: false,
+    shuffle: true,
+    loop: true,
+    loopCount: Infinity,
+  };
+
   useEffect(() => {
-    const options = {
-      strings: [
-        'learn <strong>new skills</strong>. 👀',
-        'create 💻 <strong>experiences.</strong>',
-        'discover <strong>new things</strong>.',
-        'create 🔥 <strong>websites</strong>.',
-        'create 🚀 <strong>apps</strong>.',
-      ],
-      typeSpeed: 75,
-      backSpeed: 50,
-      startDelay: 1000,
-      backDelay: 2000,
-      smartBackspace: true,
-      showCursor: false,
-      shuffle: true,
-      loop: true,
-      loopCount: Infinity,
-    };
-    const typed = new Typed(typedEl.current, options);
-    return () => typed.destroy();
-  });
+    if (visibility) {
+      const typed = new Typed(typedRef.current, options);
+      imageControls.start({ opacity: 1 });
+      return () => typed.destroy();
+    }
+  }, [visibility, options, imageControls]);
 
   return (
     <SectionTemplate id="aboutMe">
       <StyledParallaxContainer translateRange={[5, -5]}>
         {({ translateX, translateY }) => (
-          <AboutWrapper style={{ translateX, translateY }}>
+          <AboutWrapper ref={wrapperRef} style={{ translateX, translateY }}>
             <AboutTextWrapper>
               <AboutText>
                 hi, my name is <strong>Michał Tułowiecki</strong>,
                 <br />
                 <br />
-                wanna-be <strong>web developer</strong>,
+                wanna-be 🐣 <strong>web developer</strong>,
                 <br />
-                <strong>cybersecurity</strong> student
+                <strong>cybersecurity</strong> 🔒 student
                 <br />
-                and <strong>coffee</strong> geek.
+                and <strong>coffee</strong> ☕️ geek.
                 <br />
-                I love to <span ref={typedEl} />
+                I love to <span ref={typedRef} />
               </AboutText>
               <Paragraph gray semiBold>
                 based in Warsaw, currently looking for a job
@@ -153,8 +163,15 @@ const AboutSection = () => {
               whileHover={{ scale: 1.15 }}
             >
               {({ rotateX, rotateY }) => (
-                <motion.div style={{ rotateX, rotateY }}>
-                  <StyledImg fluid={data.file.childImageSharp.fluid} />
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={imageControls}
+                  style={{ rotateX, rotateY }}
+                >
+                  <StyledImg
+                    fluid={data.file.childImageSharp.fluid}
+                    backgroundColor="#020202"
+                  />
                 </motion.div>
               )}
             </ImageWrapper>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled, { withTheme } from 'styled-components';
-import { motion, useMotionValue, transform } from 'framer-motion';
+import { motion, useMotionValue, transform, MotionValue } from 'framer-motion';
 
 const StyledBox = styled(motion.div)`
   position: absolute;
@@ -94,8 +94,8 @@ const Box = ({ x, y, row, column, boxSize, containerSize, theme }) => {
 };
 
 Box.propTypes = {
-  x: PropTypes.func.isRequired,
-  y: PropTypes.func.isRequired,
+  x: PropTypes.instanceOf(MotionValue).isRequired,
+  y: PropTypes.instanceOf(MotionValue).isRequired,
   row: PropTypes.number.isRequired,
   column: PropTypes.number.isRequired,
   boxSize: PropTypes.number.isRequired,

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ResizeObserver } from '@juggle/resize-observer';
 import { motion, useAnimation, useMotionValue } from 'framer-motion';
+import { useIntersectionObserver } from '@researchgate/react-intersection-observer';
 import { media } from 'utils';
 
 import Box from 'components/Box/Box';
@@ -43,35 +44,39 @@ const Magnet = styled(motion.div)`
 `;
 
 const Matrix = ({ className }) => {
+  const [visibility, setVisibility] = useState(false);
   const [containerSize, setContainerSize] = useState(420);
   const containerRef = useRef();
   const rows = [0, 1, 2, 3, 4, 5];
   const columns = rows;
   const boxSize = containerSize / rows.length;
 
+  const handleChange = (entry) => {
+    setVisibility(entry.isIntersecting);
+  };
+
+  const [wrapperRef] = useIntersectionObserver(handleChange, { threshold: 0 });
+
   const ro = new ResizeObserver((entries) => {
     setContainerSize(entries.slice(-1)[0].contentRect.width);
   });
+
   const transition = { duration: 3, loop: Infinity, ease: 'easeOut' };
 
   const x = useMotionValue(-boxSize);
   const y = useMotionValue(-boxSize);
   const animation = useAnimation();
 
-  useEffect(() => {
-    ro.observe(containerRef.current, { box: 'border-box' });
-  }, [ro]);
-
-  const loopAnimation = useCallback(
-    () =>
+  const loopAnimation = useCallback(() => {
+    if (visibility) {
       animation.start({
         x: [-boxSize, containerSize, containerSize, -boxSize, -boxSize],
         y: [-boxSize, -boxSize, containerSize, containerSize, -boxSize],
         rotate: [0, 0, 90, 90, 180, 180, 270, 270, 360],
         transition,
-      }),
-    [animation, containerSize, transition, boxSize],
-  );
+      });
+    }
+  }, [animation, containerSize, transition, boxSize, visibility]);
 
   const stopAnimation = useCallback(() => animation.stop(), [animation]);
 
@@ -98,12 +103,17 @@ const Matrix = ({ className }) => {
   };
 
   useEffect(() => {
+    ro.observe(containerRef.current, { box: 'border-box' });
+  }, [ro]);
+
+  useEffect(() => {
     loopAnimation();
     return () => stopAnimation();
   }, [loopAnimation, stopAnimation, containerSize]);
 
   return (
     <Wrapper
+      ref={wrapperRef}
       className={className}
       onMouseEnter={stopAnimation}
       onMouseLeave={restartAnimation}

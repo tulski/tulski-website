@@ -31,7 +31,7 @@ const ParallaxContainer = ({
   useEffect(() => {
     function updateProps() {
       const currentEl = containerEl.current;
-      if (translateRange) {
+      if (translateRange.length) {
         translateX.set(
           transform(
             x.get(),
@@ -47,7 +47,7 @@ const ParallaxContainer = ({
           ),
         );
       }
-      if (rotateXRange) {
+      if (rotateXRange.length) {
         rotateX.set(
           transform(
             y.get(),
@@ -56,7 +56,7 @@ const ParallaxContainer = ({
           ),
         );
       }
-      if (rotateYRange) {
+      if (rotateYRange.length) {
         rotateY.set(
           transform(
             x.get(),
@@ -95,22 +95,22 @@ const ParallaxContainer = ({
 
 ParallaxContainer.propTypes = {
   translateRange: PropTypes.arrayOf(
-    PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   ),
   rotateXRange: PropTypes.arrayOf(
-    PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   ),
   rotateYRange: PropTypes.arrayOf(
-    PropTypes.oneOfType(PropTypes.number, PropTypes.string),
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   ),
   className: PropTypes.string,
   children: PropTypes.func.isRequired,
 };
 
 ParallaxContainer.defaultProps = {
-  translateRange: false,
-  rotateXRange: false,
-  rotateYRange: false,
+  translateRange: [],
+  rotateXRange: [],
+  rotateYRange: [],
   className: '',
 };
 

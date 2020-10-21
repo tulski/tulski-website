@@ -24,10 +24,10 @@ const Toggle = styled(motion.div)`
   z-index: 100;
 
   ${media.mobileL`
+    top:1rem;
+    right:1rem;
     height:1.5rem;
     width: 2.75rem;
-    top: 1rem;
-    right: 1rem;
   `}
 `;
 

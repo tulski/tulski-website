@@ -32,30 +32,29 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const Heading = styled(Link)`
+const Navbar = styled.nav`
+  width: 100vw;
   position: fixed;
-  top: 2rem;
-  left: 2rem;
+  top: 0;
+  left: 0;
   margin: 0;
-  font-family: 'Fira Code', sans-serif;
-  font-size: ${({ theme }) => theme.fontSize.m};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  padding: 2rem 2rem 0.5rem;
   z-index: 100;
-  cursor: pointer;
 
   ${media.tablet`
-    top: 0;
-    left: 0;
-    padding: 2rem 2rem 0.5rem;
-    width:100vw;
     background-color: ${({ theme }) => theme.primary};
   `}
 
   ${media.mobileL`
-    line-height: 1;
     padding: 1rem 1rem 0.5rem;
-    text-align: center;
-  `}
+  `};
+`;
+
+const Logo = styled(Link)`
+  font-family: 'Fira Code', sans-serif;
+  font-size: ${({ theme }) => theme.fontSize.m};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  cursor: pointer;
 `;
 
 const Guidelines = styled.div`
@@ -70,14 +69,14 @@ const Guidelines = styled.div`
   border-left: solid ${({ theme }) => theme.secondary} 0.125rem;
 
   ${media.tablet`
-  bottom: 1rem;
-  left: 1rem;
-  height:4rem;
-  width:4rem;
+    bottom: 1rem;
+    left: 1rem;
+    height:4rem;
+    width:4rem;
   `}
 `;
 
-const RootWrapper = styled.div`
+const RootWrapper = styled.main`
   position: relative;
   height: 100vh;
   scroll-snap-type: y proximity;
@@ -87,8 +86,8 @@ const RootWrapper = styled.div`
 
 const IndexPage = () => {
   const [themeMode, toggleThemeMode] = useCycle('light', 'dark');
-  const rootEl = useRef();
-  const { scrollYProgress } = useElementScroll(rootEl);
+  const rootRef = useRef();
+  const { scrollYProgress } = useElementScroll(rootRef);
 
   return (
     <ThemeProvider
@@ -109,15 +108,17 @@ const IndexPage = () => {
         <link rel="icon" type="image/png" href={favicon} />
       </Helmet>
       <GlobalStyle />
-      <RootWrapper id="root" ref={rootEl}>
-        <Heading to="home" containerId="root" smooth>
+      <Navbar>
+        <Logo to="home" containerId="root" smooth>
           tulski
-        </Heading>
+        </Logo>
+      </Navbar>
+      <Guidelines />
+      <DotsNavigation scrollYProgress={scrollYProgress} />
+      <RootWrapper id="root" ref={rootRef}>
         <ThemeToggle themeMode={themeMode} toggleThemeMode={toggleThemeMode} />
-        <Guidelines />
-        <DotsNavigation scrollYProgress={scrollYProgress} />
-        <SwipeArrow scrollYProgress={scrollYProgress} />
         <HomeSection />
+        <SwipeArrow scrollYProgress={scrollYProgress} />
         <AboutSection />
         <ProjectsSection />
         <ContactSection />
