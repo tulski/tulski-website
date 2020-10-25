@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import loadable from '@loadable/component';
 import { Helmet } from 'react-helmet';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { Link } from 'react-scroll';
@@ -10,11 +11,12 @@ import favicon from 'assets/icons/favicon.ico';
 
 import ThemeToggle from 'components/ThemeToggle/ThemeToggle';
 import DotsNavigation from 'components/DotsNavigation/DotsNavigation';
-import SwipeArrow from 'components/SwipeArrow/SwipeArrow';
 import HomeSection from 'sections/HomeSection';
-import AboutSection from 'sections/AboutSection';
-import ProjectsSection from 'sections/ProjectsSection';
 import ContactSection from 'sections/ContactSection';
+
+const SwipeArrow = loadable(() => import('components/SwipeArrow/SwipeArrow'));
+const AboutSection = loadable(() => import('sections/AboutSection'));
+const ProjectsSection = loadable(() => import('sections/ProjectsSection'));
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {

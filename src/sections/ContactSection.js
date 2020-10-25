@@ -1,12 +1,14 @@
 import React from 'react';
+import loadable from '@loadable/component';
 import styled from 'styled-components';
 import { media } from 'utils';
 
 import SectionTemplate from 'templates/SectionTemplate';
 import SectionHeading from 'components/SectionHeading/SectionHeading';
-import Matrix from 'components/Matrix/Matrix';
 import Paragraph from 'components/Paragraph/Paragraph';
 import Link from 'components/Link/Link';
+
+const Matrix = loadable(() => import('components/Matrix/Matrix'));
 
 const StyledSectionTemplate = styled(SectionTemplate)`
   grid-template: auto 1fr / 45fr 55fr;
