@@ -6,9 +6,7 @@ import { Link } from 'react-scroll';
 import { useElementScroll, useCycle } from 'framer-motion';
 
 import { colors, shadows, media, themes, typography } from 'utils';
-
 import favicon from 'assets/icons/favicon.ico';
-
 import ThemeToggle from 'components/ThemeToggle/ThemeToggle';
 import DotsNavigation from 'components/DotsNavigation/DotsNavigation';
 import HomeSection from 'sections/HomeSection';
@@ -16,7 +14,6 @@ import ContactSection from 'sections/ContactSection';
 
 const SwipeArrow = loadable(() => import('components/SwipeArrow/SwipeArrow'));
 const AboutSection = loadable(() => import('sections/AboutSection'));
-const ProjectsSection = loadable(() => import('sections/ProjectsSection'));
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
@@ -122,7 +119,6 @@ const IndexPage = () => {
         <HomeSection />
         <SwipeArrow scrollYProgress={scrollYProgress} />
         <AboutSection />
-        <ProjectsSection />
         <ContactSection />
       </RootWrapper>
     </ThemeProvider>

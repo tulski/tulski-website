@@ -145,7 +145,7 @@ const AboutSection = () => {
                 I love to <span ref={typedRef} />
               </AboutText>
               <Paragraph gray semiBold>
-                based in Warsaw
+                based in Warsaw, Poland
               </Paragraph>
               <Button
                 as={Link}

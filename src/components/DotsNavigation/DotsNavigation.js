@@ -46,11 +46,6 @@ const DotsNavigation = ({ scrollYProgress }) => {
     [0, 0.3333, 0.6666],
     [0.5, 1, 0.5],
   );
-  const projectsTransform = useTransform(
-    scrollYProgress,
-    [0.3333, 0.6666, 1],
-    [0.5, 1, 0.5],
-  );
   const contactTransform = useTransform(scrollYProgress, [0.6666, 1], [0.5, 1]);
   return (
     <StyledAside>
@@ -59,9 +54,6 @@ const DotsNavigation = ({ scrollYProgress }) => {
       </StyledLink>
       <StyledLink to="aboutMe" containerId="root" smooth>
         <Dot style={{ scale: aboutMeTransform, opacity: aboutMeTransform }} />
-      </StyledLink>
-      <StyledLink to="projects" containerId="root" smooth>
-        <Dot style={{ scale: projectsTransform, opacity: projectsTransform }} />
       </StyledLink>
       <StyledLink to="contact" containerId="root" smooth>
         <Dot style={{ scale: contactTransform, opacity: contactTransform }} />
