@@ -104,7 +104,6 @@ const AboutSection = () => {
       'learn 👀 <strong>new skills</strong>.',
       'create 💻 <strong>experiences.</strong>',
       'discover 🆕<strong> things</strong>.',
-      'create 🔥 <strong>websites</strong>.',
       'create 🚀 <strong>apps</strong>.',
     ],
     typeSpeed: 75,
@@ -136,7 +135,7 @@ const AboutSection = () => {
                 hi, my name is <strong>Michał Tułowiecki</strong>,
                 <br />
                 <br />
-                wanna-be 🐣 <strong>web developer</strong>,
+                junior 🐣 <strong>software developer</strong>,
                 <br />
                 <strong>cybersecurity</strong> 🔒 student
                 <br />
